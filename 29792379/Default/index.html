@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page - QR code verification</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, "Helvetica Neue", Helvetica, "Segoe UI", sans-serif;
+            color: #333333;
+            background-color: #ffffff;
+            font-size: 13px;
+            padding: 20px 40px;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            margin-left: 20px;
+            margin-bottom: 40px;
+        }
+
+        .logo-box {
+            display: inline-block;
+            height: 73px;
+            width: 156px;
+        }
+
+        .logo-box img {
+            width: 156px;
+            height: 73px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .header-title {
+            margin-left: 70px;
+            font-size: 27px;
+            font-weight: 500;
+            color: #222222;
+        }
+
+        .main-content {
+            margin-left: 210px;
+            margin-top: 25px;
+            position: relative;
+        }
+
+        .status-container {
+            font-size: 18px;
+            font-weight: 400;
+            margin-bottom: 22px;
+            color: #000000;
+        }
+
+        .status-success {
+            color: #008000;
+            font-weight: 500;
+            margin-left: 2px;
+        }
+
+        /* Watermarked Table Container */
+        .verification-card {
+            position: relative;
+            width: 500px;
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        /* Background Watermark using your PNG logo */
+        .verification-card::before {
+            content: "";
+            position: absolute;
+            top: 5px;
+            left: 95px;
+            width: 180px;
+            height: 95px;
+            background-image: url('logo.png'); /* Uses the same PNG logo */
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            opacity: 0.13; /* Watermark transparency */
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .info-table {
+            position: relative;
+            z-index: 1;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .info-table tr {
+            height: 24px;
+        }
+
+        .info-table td.label-col {
+            width: 200px;
+            vertical-align: top;
+            padding-right: 15px;
+        }
+
+        .info-table td.value-col {
+            vertical-align: top;
+            color: #111111;
+        }
+
+        .font-bold {
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .font-small-bold {
+            font-weight: 600;
+            font-size: 11px;
+            line-height: 1.25;
+            color: #111111;
+        }
+
+        .font-small-italic {
+            font-size: 11px;
+            font-style: italic;
+            font-weight: 600;
+            color: #111111;
+        }
+
+        .font-italic-val {
+            font-style: italic;
+            font-size: 13px;
+        }
+
+        .spacer-row {
+            height: 18px;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #eeeeee;
+            margin-top: 180px;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            color: #222222;
+            font-size: 13px;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="header-container">
+        <div class="logo-box">
+            <!-- Main PNG Logo (Size: 156px x 73px) -->
+            <img src="logo.png" id="Image1" alt="Bank Logo" />
+        </div>
+        <div class="header-title">
+            <h2>QR Code verification</h2>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <div class="status-container">
+            Verification Status:<span id="MainContent_LblStatus" class="status-success">Verification success!!!</span>
+        </div>
+
+        <div class="verification-card">
+            <table class="info-table">
+                <!-- Account Number -->
+                <tr>
+                    <td class="label-col font-bold">
+                        <span id="MainContent_LabelAccNo">Account No</span>
+                    </td>
+                    <td class="value-col">
+                        <span id="MainContent_LblAccNo">1722112000006674</span>
+                    </td>
+                </tr>
+
+                <!-- Account Name -->
+                <tr>
+                    <td class="label-col font-bold">
+                        <span id="MainContent_LabelAccName">Account Name</span>
+                    </td>
+                    <td class="value-col">
+                        <span id="MainContent_LblAccName"> AR TEXACO</span>
+                    </td>
+                </tr>
+
+                <!-- Opening Balance -->
+                <tr>
+                    <td class="label-col font-small-bold">
+                        <span id="MainContent_LblOpenBal1">Report Date Opening<br />Balance</span>
+                    </td>
+                    <td class="value-col">
+                        <span id="MainContent_LblOpenBal" class="font-italic-val"></span>
+                    </td>
+                </tr>
+
+                <!-- Closing Balance -->
+                <tr>
+                    <td class="label-col font-small-italic">
+                        <span id="MainContent_LblCloseBal1">Report Date Closing Balance</span>
+                    </td>
+                    <td class="value-col">
+                        <span id="MainContent_LblCloseBal" class="font-italic-val"></span>
+                    </td>
+                </tr>
+
+                <!-- Spacer -->
+                <tr class="spacer-row">
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <!-- Report Generation Date -->
+                <tr>
+                    <td class="label-col font-small-italic">
+                        <span id="MainContent_Label110">Report Generation Date</span>
+                    </td>
+                    <td class="value-col">
+                        <span id="MainContent_Label111" class="font-italic-val">17-Nov-2026</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Divider & Footer -->
+    <hr />
+    <footer>
+        <p>&copy; 2026 - United Commercial Bank PLC</p>
+    </footer>
+
+</body>
+</html>
